@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800&display=swap');
+:root{
+    --primary-color: #fff;
+    --background-dark: hsl(207, 26%, 17%);
+    --element-background-dark: hsl(209, 23%, 22%);
+}
+
+*{
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+body{
+    color: rgba(0, 0, 0, 0.8);
+    background-color: hsl(0, 0%, 98%);
+    transition: background-color 500ms linear;
+}
+.title{
+    font-size: 1.5em;
+}
+
+.btn-thame{
+    cursor: pointer;
+}
+.input-button{
+    position: relative;
+}
+.icon{
+    position: absolute;
+    height: 100%;
+    padding: 1rem;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+}
+#dropdownMenuLink{
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.dropdown-section{
+    display: flex;
+    justify-content: end;
+}
+.card-element{
+    cursor: pointer;
+    background-color: #fff;
+}
+.card-img{
+    height: 160px;
+    object-fit: cover;
+}
+.modal-container{
+    /* height: 100vh; */
+    background-color: #fff;
+    position: absolute;
+    z-index: 99;
+    top: 20px;
+    left: -9999px;
+    transition: .5s;
+    overflow: hidden;
+}
+.btn-back-modal{
+    z-index: 999999;
+    background: none;
+    padding: 10px 32px;
+    margin: 20px;
+    outline: none;
+    border: none;
+}
+.modal-container.active{
+    left: 0;
+}
+.wrapper{
+    left: 0;
+    right: 0;
+}
+.wrapper.active{
+    left: -99999px;
+}
+.btn-dropdown{
+    /* padding: 10px 32px; */
+    width: 170px;
+}
+.menu-dropdown option{
+    cursor: pointer;
+    user-select: contain;
+}
+.content-detail .kanan{
+    margin-left: 50px;
+}
+.wrapper-info{
+    margin-left: 50px;
+}
+.error-section{
+    height: 60vh;
+}
+/* dark section */
+#dark{
+    background-color: var(--background-dark);
+    color: #fff;
+    transition: background-color 500ms linear;
+}
+#dark .input-button input{
+    background-color: var(--element-background-dark);
+    color: #fff;
+    border: var(--element-background-dark);
+}
+#dark #dropdownMenuLink{
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: var(--element-background-dark);
+    color: #fff;
+}
+#dark .menu-dropdown{
+    background-color: var(--element-background-dark);
+    color: #fff;
+}
+#dark .menu-dropdown li a{
+    background-color: var(--element-background-dark);
+    color: #fff;
+}
+#dark .menu-dropdown li a:hover{
+    background-color: hsl(209, 23%, 25%);
+}
+#dark .card-element{
+    background-color: var(--element-background-dark);
+    color: #fff;
+}
+#dark .modal-container{
+    background-color: var(--background-dark);
+}
+#dark .btn-back-modal{
+    color: #fff;
+}
+@media only screen and (max-width: 770px){
+    .title{
+        font-size: 1rem;
+    }
+    .dropdown-section{
+        display: flex;
+        justify-content: start;
+    }
+    .content-detail{
+        flex-direction: column;
+    }
+    .content-detail .kanan{
+        margin-left: 0;
+    }
+    .nama-negara{
+        margin-top: 40px;
+    }
+    .wrapper-info{
+        margin-left: 0;
+    }
+}
