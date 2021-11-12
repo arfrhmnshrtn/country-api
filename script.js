@@ -6,7 +6,9 @@ const searchBar = document.querySelector(".input-kywoard-provinsi");
 const menuDropdown = document.querySelector(".menu-dropdown");
 const textDropdown = document.querySelector(".text-dropdown");
 const modalContainer = document.querySelector(".modal-container");
+const closeIcon = document.querySelector(".close-icon i");
 
+// toggle thame
 btnThame.addEventListener("click", () => {
   document.body.classList.toggle("darkmode");
 
@@ -29,15 +31,18 @@ menuDropdown.addEventListener("click", function (e) {
     return card.region.includes(data);
   });
 
-  if (data === "All") {
+  removeChildElement();
+  updateUI(filterName);
+  const xElement = document.createElement('i');
+  xElement.classList.add('fas', 'fa-times', 'ps-2', 'pe-2');
+  textDropdown.innerHTML = `Region : ${data}`;
+  textDropdown.appendChild(xElement)
+
+  xElement.addEventListener('click', () => {
     removeChildElement();
     updateUI(arrData);
     textDropdown.innerHTML = `Filter By Region`;
-  }else {
-    removeChildElement();
-    updateUI(filterName);
-    textDropdown.innerHTML = `Region : ${data}`;
-  }
+  });
 });
 
 // filter by name
@@ -48,7 +53,7 @@ searchBar.addEventListener("keyup", (e) => {
   });
   textDropdown.innerHTML = `Filter By Region`;
   removeChildElement();
-  if (filterName.length === 0){
+  if (filterName.length === 0) {
     containerCards.innerHTML = `<div class="container error-section d-flex justify-content-center text-center align-items-center p-5">
     <div class="boo-wrapper">
       <h1>Whoops!</h1>
@@ -62,9 +67,21 @@ searchBar.addEventListener("keyup", (e) => {
     `;
   }
   updateUI(filterName);
+  if (searchBar.value.length > 0) {
+    closeIcon.style.display = 'block';
+  }
+
+  closeIcon.addEventListener('click', () => {
+    setTimeout(() => {
+      closeIcon.style.display = 'none';
+    }, 0);
+    removeChildElement();
+    updateUI(arrData);
+    searchBar.value = '';
+  });
 });
 
-// request in API
+// get data
 const loadData = async () => {
   try {
     const res = await fetch("https://restcountries.com/v2/all")
@@ -82,11 +99,11 @@ const loadData = async () => {
   }
 };
 
-function removeChildElement(){
-  while (containerCards.hasChildNodes()) {  
+function removeChildElement() {
+  while (containerCards.hasChildNodes()) {
     containerCards.removeChild(containerCards.firstChild);
   }
-}
+};
 
 const contentModal = document.querySelector(".content-modal");
 
@@ -95,7 +112,7 @@ function updateUI(data) {
     const country = document.createElement("div");
     country.classList.add("country", "col-md-4", "col-lg-3", "col-sm-6");
     country.innerHTML = `<div class="card m-3 card-element detail">
-                                <img src="${element.flag}" class="card-img-top card-img detail">
+                                <img src="${element.flags.png}" class="card-img-top card-img detail" alt="foto bendera ${element.name}">
                                 <div class="card-body p-4 detail">
                                     <h4 class="card-text fw-bold mt-2 mb-4 detail">${element.name}</h4>
                                     <h6 class="fw-bold detail">Population : <span class="fw-normal detail">${element.population}</span></h6>
@@ -107,9 +124,7 @@ function updateUI(data) {
     // card add event listener
     country.addEventListener("click", function () {
       showDetail(element);
-      setTimeout(function() {
-        wrapperCards.style.display = 'none';
-      }, 400);
+      wrapperCards.style.display = 'none';
       modalContainer.classList.add("active");
     });
 
@@ -126,21 +141,24 @@ function updateUI(data) {
 loadData();
 
 function showDetail(data) {
+  // get languages
   const languagesData = data.languages;
   let arrLanguages = [];
   languagesData.forEach(element => {
     arrLanguages.push(element.name);
   });
 
+  // get currency
   const currency = data.currencies;
   let strCurrency = '';
   currency.forEach(element => {
     strCurrency += `${element.name}(${element.code}), ${element.symbol}`
-  })
+  });
+
   contentModal.innerHTML = `<div class="container mb-5 pt-5 pb-5">
                                 <div class="row p-3">
                                     <div class="col-md-5">
-                                    <img src="${data.flag}" class="img-fluid" alt="">
+                                    <img src="${data.flags.png}" class="img-fluid shadow" alt="foto bendera ${data.name}">
                                     </div>
                                     <div class="col wrapper-info">
                                     <h3 class="nama-negara fw-bold">${data.name}</h3>
@@ -162,5 +180,3 @@ function showDetail(data) {
                                 </div>
                             </div>`;
 }
-
-

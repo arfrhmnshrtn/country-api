@@ -12,7 +12,6 @@
 body{
     color: rgba(0, 0, 0, 0.8);
     background-color: hsl(0, 0%, 98%);
-    transition: background-color 500ms linear;
 }
 .title{
     font-size: 1.5em;
@@ -56,7 +55,7 @@ body{
     z-index: 99;
     top: 20px;
     left: -9999px;
-    transition: .5s;
+    /* transition: .5s; */
     overflow: hidden;
 }
 .btn-back-modal{
@@ -77,9 +76,11 @@ body{
 .wrapper.active{
     left: -99999px;
 }
-.btn-dropdown{
-    /* padding: 10px 32px; */
-    width: 170px;
+.text-dropdown i{
+    z-index: 999;
+}
+.menu-dropdown.active{
+    display: none;
 }
 .menu-dropdown option{
     cursor: pointer;
@@ -94,11 +95,18 @@ body{
 .error-section{
     height: 60vh;
 }
+.close-icon i{
+    display: none;
+    z-index: 99;
+    cursor: pointer;
+}
+.close-icon i:hover{
+    color: rgba(0, 0, 0, 0.5);
+}
 /* dark section */
 #dark{
     background-color: var(--background-dark);
     color: #fff;
-    transition: background-color 500ms linear;
 }
 #dark .input-button input{
     background-color: var(--element-background-dark);
@@ -130,6 +138,9 @@ body{
 }
 #dark .btn-back-modal{
     color: #fff;
+}
+#dark .close-icon i:hover{
+    color: rgba(255, 255, 255, 0.5);
 }
 @media only screen and (max-width: 770px){
     .title{
